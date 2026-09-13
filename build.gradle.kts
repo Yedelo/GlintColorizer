@@ -96,7 +96,6 @@ dependencies {
     for (module in arrayOf("commands", "config", "config-impl", "events", "internal", "ui", "utils", "hud")) {
         implementation("org.polyfrost.oneconfig:$module:$oneconfigversion")
     }
-    implementation("org.polyfrost:polyui:${sc.properties.getAs<String>("deps.polyui")}")
 
     if (!isOrnithe) {
         val fapiversion: String = sc.properties["deps.fabric_api"]
