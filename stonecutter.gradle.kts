@@ -34,6 +34,12 @@ stonecutter {
 }
 
 stonecutter parameters {
+    constants {
+        val legacy =  current.version == "1.8.9"
+        this["legacy"] = legacy
+        this["modern"] = !legacy
+    }
+
     replacements {
         string(current.parsed < "26.1") {
             replace("classTweaker v1 official", "classTweaker v1 named")

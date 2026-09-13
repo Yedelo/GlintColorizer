@@ -1,9 +1,9 @@
 {
 	"schemaVersion": 1,
-	"id": "${id}",
-	"version": "${version}",
-	"name": "${name}",
-	"description": "${description}",
+	"id": "${mod_id}",
+	"version": "${mod_version}",
+	"name": "${mod_name}",
+	"description": "${mod_description}",
 	"authors": [
 		"Polyfrost",
 		"lowercasebtw"
@@ -11,16 +11,16 @@
 	"contributors": [
 	],
 	"contact": {
-		"homepage": "${source}",
-		"sources": "${source}",
-		"issues": "${issues}"
+		"homepage": "https://github.com/Polyfrost/${mod_name}",
+		"sources": "https://github.com/Polyfrost/${mod_name}",
+		"issues": "https://github.com/Polyfrost/${mod_name}/issues"
 	},
 	"license": "${license}",
-	"icon": "assets/${id}/glintcolorizer_dark.svg",
+	"icon": "assets/${mod_id}/glintcolorizer_dark.svg",
 	"environment": "client",
 	"depends": {
-		"fabricloader": ">=${fabric_loader_version}",
+		"fabricloader": ">=${loader_version}",
 		"minecraft": "${minecraft_version_range}",
-		"fabric-api": "*"
+		"oneconfigv1": ">=${oneconfig_version}"
 	}
 }

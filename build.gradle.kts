@@ -31,6 +31,8 @@ val ploceus = if (isOrnithe) {
 val modid: String = sc.properties["mod.id"]
 val modname: String = sc.properties["mod.name"]
 val modversion: String = sc.properties["mod.version"]
+val moddescription: String = sc.properties["mod.description"]
+val license: String = sc.properties["license"]
 val mcversion: String = sc.current.version
 val versionrange: String = sc.properties["mod.mc_compat"]
 val loaderversion: String = sc.properties["deps.fabric_loader"]
@@ -94,14 +96,14 @@ dependencies {
     for (module in arrayOf("commands", "config", "config-impl", "events", "internal", "ui", "utils", "hud")) {
         implementation("org.polyfrost.oneconfig:$module:$oneconfigversion")
     }
-    implementation("org.polyfrost:polyui:${sc.properties.get<String>("deps.polyui")}")
+    implementation("org.polyfrost:polyui:${sc.properties.getAs<String>("deps.polyui")}")
 
     if (!isOrnithe) {
         val fapiversion: String = sc.properties["deps.fabric_api"]
         modImplementation("net.fabricmc.fabric-api:fabric-api:$fapiversion")
     }
 
-    testImplementation("org.junit.jupiter:junit-jupiter:${sc.properties.get<String>("deps.junit")}")
+    testImplementation("org.junit.jupiter:junit-jupiter:${sc.properties.getAs<String>("deps.junit")}")
     testImplementation("net.fabricmc:fabric-loader-junit:$loaderversion")
 }
 
@@ -167,8 +169,11 @@ tasks {
             "mod_id" to modid,
             "mod_name" to modname,
             "mod_version" to modversion,
+            "mod_description" to moddescription,
+            "license" to license,
             "minecraft_version_range" to versionrange,
-            "loader_version" to loaderversion
+            "loader_version" to loaderversion,
+            "oneconfig_version" to oneconfigversion
         )
 
         inputs.properties(props)
@@ -194,8 +199,8 @@ tasks {
     }
 }
 
-val modrinthId = listOf("oneconfig.publish.modrinth", "publish.modrinth")
-    .firstNotNullOfOrNull { sc.properties.getOrNull<String>(it) ?: findProperty(it)?.toString() }
+val modrinthId = listOf("publish.modrinth")
+    .firstNotNullOfOrNull { sc.properties.getAs<String>(it) ?: findProperty(it)?.toString() }
     ?.takeIf { it.isNotBlank() }
 val modrinthToken = listOf("oneconfig.publish.modrinth.token", "publish.modrinth.token", "modrinth.token")
     .firstNotNullOfOrNull { findProperty(it) }?.toString()?.takeIf { it.isNotBlank() }

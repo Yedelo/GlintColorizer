@@ -2,9 +2,11 @@ mod.id = "glintcolorizer"
 mod.name = "GlintColorizer"
 mod.group = "org.polyfrost"
 mod.version = "3.0.0"
+mod.description = "Change the color of the enchantment glint!"
+license = "LGPL-3.0-only"
 
 deps.fabric_loader = "0.19.3"
-deps.oneconfig = "1.1.12"
+deps.oneconfig = "1.1.15"
 deps.polyui = "2.1.7"
 deps.junit = "6.1.3"
 
