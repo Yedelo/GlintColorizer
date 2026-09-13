@@ -45,18 +45,18 @@ public class GlintMetadata {
 
 	public static BaseGlint getRenderingOptions() {
 		return switch (cachedRenderMode) {
-			case HELD -> GlintColorizerConfig.heldItemGlint;
-			case SHINY -> GlintColorizerConfig.shinyPots;
-			case GUI -> GlintColorizerConfig.guiItemGlint;
-			case DROPPED -> GlintColorizerConfig.droppedItemGlint;
-			case FRAMED -> GlintColorizerConfig.framedItemGlint;
+			case HELD -> GlintColorizerConfig.INSTANCE.heldItemGlint;
+			case SHINY -> GlintColorizerConfig.INSTANCE.shinyPots;
+			case GUI -> GlintColorizerConfig.INSTANCE.guiItemGlint;
+			case DROPPED -> GlintColorizerConfig.INSTANCE.droppedItemGlint;
+			case FRAMED -> GlintColorizerConfig.INSTANCE.framedItemGlint;
 		};
 	}
 
 	public static int getGlintColor(GlintLayer layer, boolean isArmor) {
-		BaseGlint options = isArmor ? GlintColorizerConfig.armorGlint : getRenderingOptions();
-		if (cachedItemStack.getItem() instanceof PotionItem && GlintColorizerConfig.shinyPots.useCustomColor) {
-			options = GlintColorizerConfig.shinyPots;
+		BaseGlint options = isArmor ? GlintColorizerConfig.INSTANCE.armorGlint : getRenderingOptions();
+		if (cachedItemStack.getItem() instanceof PotionItem && GlintColorizerConfig.INSTANCE.shinyPots.useCustomColor) {
+			options = GlintColorizerConfig.INSTANCE.shinyPots;
 			if (options instanceof ShinyPotsCategory shinyPotsCategory && shinyPotsCategory.usePotionBasedColor && cachedItemStack.has(DataComponents.POTION_CONTENTS)) {
 				return Objects.requireNonNull(cachedItemStack.getComponents().get(DataComponents.POTION_CONTENTS)).getColor();
 			}

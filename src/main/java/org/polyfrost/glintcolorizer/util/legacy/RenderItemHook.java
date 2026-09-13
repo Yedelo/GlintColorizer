@@ -25,7 +25,7 @@ public class RenderItemHook {
     }
 
     public boolean isPotionGlintEnabled() {
-        return GlintColorizerConfig.enabled && GlintColorizerConfig.shinyPots.enabled;
+        return GlintColorizerConfig.INSTANCE.enabled && GlintColorizerConfig.INSTANCE.shinyPots.enabled;
     }
 
     public boolean isPotionItem() {

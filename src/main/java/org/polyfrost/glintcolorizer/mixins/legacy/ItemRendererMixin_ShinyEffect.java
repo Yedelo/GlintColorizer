@@ -59,7 +59,7 @@ public abstract class ItemRendererMixin_ShinyEffect {
     )
     private void glintColorizer$onRenderModel(ItemStack stack, BakedModel model, CallbackInfo ci) {
         if (!RenderItemHook.INSTANCE.isPotionGlintEnabled()) { return; }
-        if ((GlintColorizerConfig.shinyPots.foreground || GlintColorizerConfig.shinyPots.background) && glintColorizer$isValidItem(stack)) {
+        if ((GlintColorizerConfig.INSTANCE.shinyPots.foreground || GlintColorizerConfig.INSTANCE.shinyPots.background) && glintColorizer$isValidItem(stack)) {
             renderEnchantmentGlint(model);
         }
     }
@@ -74,7 +74,7 @@ public abstract class ItemRendererMixin_ShinyEffect {
     )
     private void glintColorizer$onRenderModel2(ItemStack stack, BakedModel model, CallbackInfo ci) {
         if (!RenderItemHook.INSTANCE.isPotionGlintEnabled()) { return; }
-        if (GlintColorizerConfig.shinyPots.background && !GlintColorizerConfig.shinyPots.foreground && glintColorizer$isValidItem(stack)) {
+        if (GlintColorizerConfig.INSTANCE.shinyPots.background && !GlintColorizerConfig.INSTANCE.shinyPots.foreground && glintColorizer$isValidItem(stack)) {
             ItemRenderer instance = (ItemRenderer) (Object) this;
             SecondGlintHandler.renderEffect(instance, model, textureManager, ENCHANTMENT_GLINT_LOCATION);
         }
@@ -89,7 +89,7 @@ public abstract class ItemRendererMixin_ShinyEffect {
     )
     private boolean glintColorizer$disableRenderEffect(ItemStack instance) {
         if (RenderItemHook.INSTANCE.isPotionGlintEnabled() && RenderItemHook.INSTANCE.isRenderingInGUI() && RenderItemHook.INSTANCE.isPotionItem()) {
-            return !GlintColorizerConfig.shinyPots.foreground && !GlintColorizerConfig.shinyPots.background;
+            return !GlintColorizerConfig.INSTANCE.shinyPots.foreground && !GlintColorizerConfig.INSTANCE.shinyPots.background;
         }
         return instance.getItem() != null && instance.hasEnchantmentGlint();
     }
@@ -104,7 +104,7 @@ public abstract class ItemRendererMixin_ShinyEffect {
     )
     private void glintColorizer$fullSlotSize(BakedModel model, CallbackInfo ci) {
         if (!RenderItemHook.INSTANCE.isPotionGlintEnabled()) { return; }
-        if (GlintColorizerConfig.shinyPots.fullSlotShine && RenderItemHook.INSTANCE.isRenderingInGUI() && RenderItemHook.INSTANCE.isPotionItem()) {
+        if (GlintColorizerConfig.INSTANCE.shinyPots.fullSlotShine && RenderItemHook.INSTANCE.isRenderingInGUI() && RenderItemHook.INSTANCE.isPotionItem()) {
             GlStateManager.scaled(1.25, 1.25, 1.25);
             GlStateManager.translated(-0.1, -0.1, 0.0);
         }

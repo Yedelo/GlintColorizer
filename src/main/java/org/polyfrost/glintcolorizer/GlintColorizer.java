@@ -11,13 +11,13 @@ public final class GlintColorizer implements ClientModInitializer {
 	@Override
 	public void onInitializeClient() {
 		// Config
-//		GlintColorizerConfig.INSTANCE.preload();
+//		GlintColorizerConfig.INSTANCE.INSTANCE.preload();
 
 		// Commands
         CommandManager.INSTANCE.register(
             CommandManager.literal("glintcolorizer")
             .executes((source) -> {
-                ScreensKt.openUI(GlintColorizerConfig.INSTANCE);
+                ScreensKt.openUI(GlintColorizerConfig.INSTANCE.INSTANCE);
                 return Command.SINGLE_SUCCESS;
             })
         );

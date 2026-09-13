@@ -50,7 +50,7 @@ public class SecondGlintHandler {
 //        if (GlintConfig.guiItem.individualStrokes) GlintConfig.guiItem.strokeOneColor.rgb
 //        else GlintConfig.guiItem.glintColor.rgb
 //        )
-        int color = GlintColorizerConfig.guiItemGlint.individualStrokes ? GlintColorizerConfig.guiItemGlint.strokeOneColor.getArgb() : GlintColorizerConfig.guiItemGlint.color.getArgb();
+        int color = GlintColorizerConfig.INSTANCE.guiItemGlint.individualStrokes ? GlintColorizerConfig.INSTANCE.guiItemGlint.strokeOneColor.getArgb() : GlintColorizerConfig.INSTANCE.guiItemGlint.color.getArgb();
         ((ItemRendererAccessor) itemRenderer).invokeRender(model, color);
         GlStateManager.popMatrix();
     }
@@ -61,7 +61,7 @@ public class SecondGlintHandler {
         float f1 = (Minecraft.getTime() % 4873L) / 4873.0f / 8.0f;
         GlStateManager.translatef(-f1, 0.0f, 0.0f);
         GlStateManager.rotatef(10.0f, 0.0f, 0.0f, 1.0f);
-        int color = GlintColorizerConfig.guiItemGlint.individualStrokes ? GlintColorizerConfig.guiItemGlint.strokeTwoColor.getArgb() : GlintColorizerConfig.guiItemGlint.color.getArgb();
+        int color = GlintColorizerConfig.INSTANCE.guiItemGlint.individualStrokes ? GlintColorizerConfig.INSTANCE.guiItemGlint.strokeTwoColor.getArgb() : GlintColorizerConfig.INSTANCE.guiItemGlint.color.getArgb();
         ((ItemRendererAccessor) itemRenderer).invokeRender(model, color);
         GlStateManager.popMatrix();
     }

@@ -32,7 +32,7 @@ public abstract class MixinGuiGraphics_StoreGlintState {
 	)
 	private TrackingItemStackRenderState glintcolorizer$storeItemGui(Operation<TrackingItemStackRenderState> original, @Local(argsOnly = true) ItemStack itemStack) {
 		TrackingItemStackRenderState itemStackRenderState = original.call();
-		if (GlintColorizerConfig.enabled) {
+		if (GlintColorizerConfig.INSTANCE.enabled) {
 			((ItemRenderStateStorage) itemStackRenderState).glintcolorizer$setItemStack(itemStack);
 			((ItemRenderStateStorage) itemStackRenderState).glintcolorizer$setRenderMode(GlintMetadata.RenderMode.GUI);
 		}

@@ -28,7 +28,7 @@ public abstract class AbstractArmorLayerMixin<T extends Model> implements Entity
         cancellable = true
     )
     private void glintColorizer$disableGlint(LivingEntity entitylivingbaseIn, T modelbaseIn, float p_177183_3_, float p_177183_4_, float partialTicks, float p_177183_6_, float p_177183_7_, float p_177183_8_, float scale, CallbackInfo ci) {
-        if (GlintColorizerConfig.armorGlint.enabled && GlintColorizerConfig.enabled) {
+        if (GlintColorizerConfig.INSTANCE.enabled && !GlintColorizerConfig.INSTANCE.armorGlint.enabled) {
             ci.cancel();
         }
     }
@@ -41,7 +41,7 @@ public abstract class AbstractArmorLayerMixin<T extends Model> implements Entity
         )
     )
     private void glintColorizer$modifyArmorColor(Args args) {
-        PolyColor color = GlintColorizerConfig.armorGlint.color;
+        PolyColor color = GlintColorizerConfig.INSTANCE.armorGlint.color;
         args.set(0, color.getRedF());
         args.set(1, color.getGreenF());
         args.set(2, color.getBlueF());

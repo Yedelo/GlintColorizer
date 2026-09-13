@@ -173,10 +173,10 @@ public class GlintPipeline {
     public static final RenderType ARMOR_GLINT_1ST_LAYER_RENDERTYPE = makeArmorGlintLayer(new RenderStateShard.TexturingStateShard(
             "armor_glint_layer_1_texturing",
             () -> {
-                final float scale = 0.33333334F * GlintColorizerConfig.armorGlint.scale;
+                final float scale = 0.33333334F * GlintColorizerConfig.INSTANCE.armorGlint.scale;
                 RenderSystem.setTextureMatrix(new Matrix4f()
                         .scale(scale)
-                        .rotateZ((float) Math.toRadians(30.0F - GlintColorizerConfig.armorGlint.strokeOneRotation))
+                        .rotateZ((float) Math.toRadians(30.0F - GlintColorizerConfig.INSTANCE.armorGlint.strokeOneRotation))
                         .translate(0.0F, getArmorTilt() * 0.001F * 20.0F, 0.0F));
             },
             RenderSystem::resetTextureMatrix
@@ -185,10 +185,10 @@ public class GlintPipeline {
     public static final RenderType ARMOR_GLINT_2ND_LAYER_RENDERTYPE = makeArmorGlintLayer(new RenderStateShard.TexturingStateShard(
             "armor_glint_layer_2_texturing",
             () -> {
-                final float scale = 0.33333334F * GlintColorizerConfig.armorGlint.scale;
+                final float scale = 0.33333334F * GlintColorizerConfig.INSTANCE.armorGlint.scale;
                 RenderSystem.setTextureMatrix(new Matrix4f()
                         .scale(scale)
-                        .rotateZ((float) Math.toRadians(30.0F - GlintColorizerConfig.armorGlint.strokeTwoRotation))
+                        .rotateZ((float) Math.toRadians(30.0F - GlintColorizerConfig.INSTANCE.armorGlint.strokeTwoRotation))
                         .translate(0.0F, getArmorTilt() * (0.001F + 0.003F) * 20.0F, 0.0F));
             },
             RenderSystem::resetTextureMatrix
@@ -226,7 +226,7 @@ public class GlintPipeline {
 
     // Utility
     private static float getArmorTilt() {
-        return (float) ((Util.getMillis() * GlintColorizerConfig.armorGlint.speed * 8.0) % 300000L) / 500.0F;
+        return (float) ((Util.getMillis() * GlintColorizerConfig.INSTANCE.armorGlint.speed * 8.0) % 300000L) / 500.0F;
     }
 
     private static float getSystemTime() {

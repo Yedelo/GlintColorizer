@@ -56,10 +56,10 @@ public abstract class MixinItemRenderer_ApplyCustomRenderTypes {
 
     @Inject(method = "getFoilBuffer", at = @At("RETURN"), cancellable = true)
     private static void glintcolorizer$replaceWithCustomRenderer$default(MultiBufferSource multiBufferSource, RenderType itemRenderType, boolean isEntity, boolean hasFoil, CallbackInfoReturnable<VertexConsumer> cir) {
-        if (GlintColorizerConfig.enabled && hasFoil) {
+        if (GlintColorizerConfig.INSTANCE.enabled && hasFoil) {
             final VertexConsumer itemVertexConsumer = multiBufferSource.getBuffer(itemRenderType);
             if (GlintMetadata.getRenderingOptions().enabled) {
-                final boolean shiny = GlintMetadata.getItemStack().getItem() instanceof PotionItem && GlintColorizerConfig.shinyPots.fullSlotShine && GlintMetadata.getRenderMode() == GlintMetadata.RenderMode.GUI;
+                final boolean shiny = GlintMetadata.getItemStack().getItem() instanceof PotionItem && GlintColorizerConfig.INSTANCE.shinyPots.fullSlotShine && GlintMetadata.getRenderMode() == GlintMetadata.RenderMode.GUI;
                 final VertexConsumer firstGlintLayerVertexConsumer = multiBufferSource.getBuffer(shiny ? GlintPipeline.SHINY_ITEM_GLINT_1ST_LAYER_RENDERTYPE : GlintPipeline.ITEM_GLINT_1ST_LAYER_RENDERTYPE);
                 final VertexConsumer secondGlintLayerVertexConsumer = multiBufferSource.getBuffer(shiny ? GlintPipeline.SHINY_ITEM_GLINT_2ND_LAYER_RENDERTYPE : GlintPipeline.ITEM_GLINT_2ND_LAYER_RENDERTYPE);
                 cir.setReturnValue(VertexMultiConsumer.create(firstGlintLayerVertexConsumer, VertexMultiConsumer.create(secondGlintLayerVertexConsumer, itemVertexConsumer)));
@@ -73,9 +73,9 @@ public abstract class MixinItemRenderer_ApplyCustomRenderTypes {
     //? <=1.21.8 {
     @Inject(method = "getArmorFoilBuffer", at = @At("RETURN"), cancellable = true)
     private static void glintcolorizer$replaceWithCustomRenderer$armor(MultiBufferSource multiBufferSource, RenderType armorRenderType, boolean hasFoil, CallbackInfoReturnable<VertexConsumer> cir) {
-        if (GlintColorizerConfig.enabled && hasFoil) {
+        if (GlintColorizerConfig.INSTANCE.enabled && hasFoil) {
             final VertexConsumer armorVertexConsumer = multiBufferSource.getBuffer(armorRenderType);
-            if (GlintColorizerConfig.armorGlint.enabled) {
+            if (GlintColorizerConfig.INSTANCE.armorGlint.enabled) {
                 final VertexConsumer firstGlintLayerVertexConsumer = multiBufferSource.getBuffer(GlintPipeline.ARMOR_GLINT_1ST_LAYER_RENDERTYPE);
                 final VertexConsumer secondGlintLayerVertexConsumer = multiBufferSource.getBuffer(GlintPipeline.ARMOR_GLINT_2ND_LAYER_RENDERTYPE);
                 cir.setReturnValue(VertexMultiConsumer.create(firstGlintLayerVertexConsumer, VertexMultiConsumer.create(secondGlintLayerVertexConsumer, armorVertexConsumer)));
@@ -94,7 +94,7 @@ public abstract class MixinItemRenderer_ApplyCustomRenderTypes {
             //?}
             at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/MultiBufferSource;getBuffer(Lnet/minecraft/client/renderer/RenderType;)Lcom/mojang/blaze3d/vertex/VertexConsumer;", ordinal = 0))
     private static VertexConsumer glintcolorizer$replaceWithCustomRenderer$compass(MultiBufferSource multiBufferSource, RenderType renderType, Operation<VertexConsumer> original) {
-        if (GlintColorizerConfig.enabled) {
+        if (GlintColorizerConfig.INSTANCE.enabled) {
             final VertexConsumer firstGlintLayerVertexConsumer = multiBufferSource.getBuffer(GlintPipeline.ITEM_GLINT_1ST_LAYER_RENDERTYPE);
             final VertexConsumer secondGlintLayerVertexConsumer = multiBufferSource.getBuffer(GlintPipeline.ITEM_GLINT_2ND_LAYER_RENDERTYPE);
             return VertexMultiConsumer.create(firstGlintLayerVertexConsumer, secondGlintLayerVertexConsumer);
@@ -111,7 +111,7 @@ public abstract class MixinItemRenderer_ApplyCustomRenderTypes {
             //?}
             at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/vertex/VertexMultiConsumer;create(Lcom/mojang/blaze3d/vertex/VertexConsumer;Lcom/mojang/blaze3d/vertex/VertexConsumer;)Lcom/mojang/blaze3d/vertex/VertexConsumer;", ordinal = 0))
     private static VertexConsumer glintcolorizer$replaceWithCustomRenderer$compass$enabled(VertexConsumer glintVertexConsumer, VertexConsumer itemVertexConsumer, Operation<VertexConsumer> original) {
-        if (GlintColorizerConfig.enabled && !GlintMetadata.getRenderingOptions().enabled) {
+        if (GlintColorizerConfig.INSTANCE.enabled && !GlintMetadata.getRenderingOptions().enabled) {
             return itemVertexConsumer;
         } else {
             return original.call(glintVertexConsumer, itemVertexConsumer);
