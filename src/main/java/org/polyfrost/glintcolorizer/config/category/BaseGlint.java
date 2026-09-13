@@ -1,10 +1,9 @@
 package org.polyfrost.glintcolorizer.config.category;
 
+import org.polyfrost.compose.render.PolyColor;
 import org.polyfrost.oneconfig.api.config.v1.annotations.Color;
 import org.polyfrost.oneconfig.api.config.v1.annotations.Slider;
 import org.polyfrost.oneconfig.api.config.v1.annotations.Switch;
-import org.polyfrost.polyui.color.ColorUtils;
-import org.polyfrost.polyui.color.PolyColor;
 
 public class BaseGlint {
 	@Switch(title = "Enabled")
@@ -14,16 +13,16 @@ public class BaseGlint {
 	public boolean individualStrokes = false;
 
 	@Color(title = "Color")
-	public PolyColor color = ColorUtils.rgba(0x80, 0x40, 0xCC, 0xFF);
+	public PolyColor color = new PolyColor(0xFF8040CC);
 
 	@Color(title = "Stroke One Color")
-	public PolyColor strokeOneColor = ColorUtils.rgba(0xFF, 0x00, 0x00, 0xFF);
+	public PolyColor strokeOneColor = new PolyColor( 0xFFFF0000);
 
 	@Slider(title = "Stroke Two Rotation", min = -50, max = 50, step = 1)
 	public int strokeOneRotation = -50;
 
 	@Color(title = "Stroke Two Color")
-	public PolyColor strokeTwoColor = ColorUtils.rgba(0x0A, 0xEA, 0xFF, 0xFF);
+	public PolyColor strokeTwoColor = new PolyColor(0xFF0AEAFF);
 
 	@Slider(title = "Stroke Two Rotation", min = -50, max = 50, step = 1)
 	public int strokeTwoRotation = 10;

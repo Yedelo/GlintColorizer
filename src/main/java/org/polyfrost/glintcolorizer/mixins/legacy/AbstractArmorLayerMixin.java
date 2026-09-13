@@ -5,8 +5,8 @@ import net.minecraft.client.render.model.Model;
 import net.minecraft.client.render.entity.layer.EntityRenderLayer;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.client.render.entity.layer.AbstractArmorLayer;
+import org.polyfrost.compose.render.PolyColor;
 import org.polyfrost.glintcolorizer.config.GlintColorizerConfig;
-import org.polyfrost.polyui.color.ColorUtils;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -41,10 +41,10 @@ public abstract class AbstractArmorLayerMixin<T extends Model> implements Entity
         )
     )
     private void glintColorizer$modifyArmorColor(Args args) {
-        int color = GlintColorizerConfig.armorGlint.color.getArgb();
-        args.set(0, (float) ColorUtils.getRed(color) / 255);
-        args.set(1, (float) ColorUtils.getGreen(color) / 255);
-        args.set(2, (float) ColorUtils.getBlue(color) / 255);
+        PolyColor color = GlintColorizerConfig.armorGlint.color;
+        args.set(0, color.getRedF());
+        args.set(1, color.getGreenF());
+        args.set(2, color.getBlueF());
     }
 
 }
