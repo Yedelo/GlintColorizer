@@ -11,7 +11,7 @@ public final class GlintColorizer implements ClientModInitializer {
 	@Override
 	public void onInitializeClient() {
 		// Config
-		GlintColorizerConfig.INSTANCE.preload();
+//		GlintColorizerConfig.INSTANCE.preload();
 
 		// Commands
         CommandManager.INSTANCE.register(
