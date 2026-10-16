@@ -1,7 +1,11 @@
+import com.sun.imageio.plugins.jpeg.JPEG.vendor
+import jdk.internal.vm.vector.VectorSupport.test
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import net.ornithemc.ploceus.api.PloceusGradleExtensionApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import sun.java2d.StateTrackable
+import sun.tools.jar.resources.jar
 
 plugins {
     id("dev.kikugie.loom-back-compat")
@@ -69,6 +73,7 @@ repositories {
     strictMaven("https://maven.fabricmc.net/", "FabricMC", "net.fabricmc")
     strictMaven("https://www.cursemaven.com", "CurseForge", "curse.maven")
     strictMaven("https://api.modrinth.com/maven", "Modrinth", "maven.modrinth")
+    maven("https://maven.taumc.org/releases/")
 }
 
 dependencies {
@@ -76,6 +81,7 @@ dependencies {
     if (isOrnithe) {
         mappings(ploceus!!.mcpMappings("stable", "1.8.9", "22"))
         ploceus.dependOsl(sc.properties["deps.osl"])
+        compileOnly("org.embeddedt.celeritas:celeritas-common:2.5.0-pre.1")
     } else {
         loomx.applyMojangMappings()
     }
