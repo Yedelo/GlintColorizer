@@ -44,7 +44,7 @@ object CeleritasCompat {
                     option.storage.save()
                 }
             }.onFailure {
-                LOGGER.warn("Failed to parse celeritas config", it)
+                LOGGER.warn("Failed to save celeritas config", it)
             }
         }
         //@TODO add original screen opener which opens argentum VideoOptionsScreen
