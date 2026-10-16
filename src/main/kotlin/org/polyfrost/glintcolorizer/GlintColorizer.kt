@@ -15,5 +15,6 @@ object GlintColorizer : ClientModInitializer {
     override fun onInitializeClient() {
         CommandManager.register(GlintCommand())
         MinecraftClientEvents.READY.register() { context: Any -> GlintConfig.preload() }
+        CeleritasCompat.enable()
     }
 }
