@@ -3,6 +3,7 @@
   "minVersion": "0.8",
   "package": "org.polyfrost.glintcolorizer.mixin",
   "mixins": [
+    "ClassNameTooDamnLong",
     "LayerArmorBaseMixin",
     "RenderItemMixin_GlintCustomizer",
     "RenderItemMixin_ShinyEffect",
@@ -10,10 +11,10 @@
   ],
   "verbose": true,
   "client": [
+    "ItemEntityRendererMixin_HandleCameraTransforms",
+    "ItemRendererMixin_HandleCameraTransforms",
     "compat.GuiItemGlintsMixin_Argentum",
     "compat.GuiItemIconsMixin_Argentum",
-    "compat.LegacyGlintMixin_OverflowAnimations",
-    "ItemEntityRendererMixin_HandleCameraTransforms",
-    "ItemRendererMixin_HandleCameraTransforms"
+    "compat.LegacyGlintMixin_OverflowAnimations"
   ]
 }
