@@ -1,5 +1,6 @@
 import com.sun.imageio.plugins.jpeg.JPEG.vendor
 import jdk.internal.vm.vector.VectorSupport.test
+import jdk.jfr.internal.JVM.exclude
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import net.ornithemc.ploceus.api.PloceusGradleExtensionApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
@@ -81,6 +82,7 @@ dependencies {
     if (isOrnithe) {
         mappings(ploceus!!.mcpMappings("stable", "1.8.9", "22"))
         ploceus.dependOsl(sc.properties["deps.osl"])
+        compileOnly("dev.rdh:argentum:1.0.0")
         compileOnly("org.embeddedt.celeritas:celeritas-common:2.5.0-pre.1")
     } else {
         loomx.applyMojangMappings()

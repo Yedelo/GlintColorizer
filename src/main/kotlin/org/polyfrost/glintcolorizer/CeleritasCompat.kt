@@ -1,28 +1,35 @@
 package org.polyfrost.glintcolorizer
 
+import dev.rdh.argentum.impl.gui.VideoOptionsScreen
+import net.minecraft.client.resources.I18n
 import org.apache.logging.log4j.LogManager
+import org.embeddedt.embeddium.impl.gui.framework.TextComponent
+import org.embeddedt.embeddium.impl.gui.framework.TextComponent.Styled
+import org.polyfrost.glintcolorizer.utils.OptionProperties
 import org.polyfrost.oneconfig.api.config.v1.CompatSnapshots
 import org.polyfrost.oneconfig.api.config.v1.Properties
 import org.polyfrost.oneconfig.api.config.v1.Tree
-import org.polyfrost.oneconfig.api.config.v1.Tree.tree
 import org.polyfrost.oneconfig.api.config.v1.Visualizer
 import org.polyfrost.oneconfig.api.config.v1.dsl.noCache
 import org.polyfrost.oneconfig.api.config.v1.dsl.saveFunction
-import org.polyfrost.oneconfig.api.platform.v1.ModInfo
-import org.polyfrost.oneconfig.api.platform.v1.ModInfoProvider
 import org.polyfrost.oneconfig.api.platform.v1.Platform
 import org.taumc.celeritas.api.OptionGUIConstructionEvent
+import org.taumc.celeritas.api.options.control.Control
+import org.taumc.celeritas.api.options.control.CyclingControl
+import org.taumc.celeritas.api.options.control.SliderControl
+import org.taumc.celeritas.api.options.control.TickBoxControl
 import org.taumc.celeritas.api.options.structure.Option
 import org.taumc.celeritas.api.options.structure.OptionGroup
 import org.taumc.celeritas.api.options.structure.OptionPage
-import kotlin.collections.iterator
-import kotlin.io.iterator
-import kotlin.text.iterator
+import sun.security.krb5.EncryptionKey.findKey
+import java.util.HashMap
+import java.util.function.Consumer
+import java.util.function.Supplier
 
 
 object CeleritasCompat {
     private val LOGGER = LogManager.getLogger("OneConfig/CeleritasCompat")
-    private const val EVENT_CLASS = "org.taumc.celeritas.api.OptionGUIConstructionEvent"
+    private const val ARGENTUM_SCREEN_CLASS = "dev.rdh.argentum.impl.gui.VideoOptionsScreen"
     private var enabled = false
     private var trees = HashMap<String, Tree>()
 
@@ -30,12 +37,12 @@ object CeleritasCompat {
     fun enable() {
         if (enabled) return
         enabled = true
-        //@TODO replace posting an event with constructing argentum's videooptionsscreen, since it's required in order for argentum to work and there's no point in it being separate
-        if (loadClass(EVENT_CLASS) == null) return
-        val optionPages = ArrayList<OptionPage>()
-        val event = OptionGUIConstructionEvent(optionPages)
+        // i cannot decide how to initialize things because this is all a mess with compiling
+        // i would initialize a new VideoOptionsScreen (this is why i added argentum dependency) but it has been a nightmare
+        val list = ArrayList<OptionPage>()
+        val event = OptionGUIConstructionEvent(list)
         OptionGUIConstructionEvent.BUS.post(event)
-        handleOptionPages(optionPages)
+        handleOptionPages(list)
     }
 
     fun handleOptionPages(optionPages: List<OptionPage>) {
@@ -83,11 +90,36 @@ object CeleritasCompat {
     var x = 5
     fun handleOption(tree: Tree, optionPage: OptionPage, optionGroup: OptionGroup, option: Option<*>) {
         println(" - found option ${option.id} ${option.name}")
-        val property = Properties.functional({ 3 }, {}, "exampleid${x++}", "Example Name", "woah look option!")
-        property.addMetadata("visualizer", Visualizer.SliderVisualizer::class.java)
+        val id = option.id?.path
+        val name = option.name.getAsString()
+        val description = option.tooltip.getAsString()
+        val property = OptionProperties.getProperty(option, id, name, description)
+        val visualizer = when (option.control) {
+            is SliderControl -> Visualizer.SliderVisualizer::class.java;
+            is TickBoxControl -> Visualizer.CheckboxVisualizer::class.java;
+            is CyclingControl -> Visualizer.RadioVisualizer::class.java;
+            else -> throw IllegalStateException("something else (yt)")
+        }
+        property.addMetadata("visualizer", visualizer)
         property.addMetadata("category", optionPage.name.toString())
         property.addMetadata("subcategory", optionGroup.id.toString())
         tree.put(property)
+    }
+
+    fun TextComponent.getAsString(): String {
+        if (this is TextComponent.Literal) {
+            return this.text()
+        }
+        else if (this is TextComponent.Translatable) {
+            //@TODO translatable text
+            return this.toString()
+        }
+        else if (this is Styled) {
+            return this.inner.getAsString()
+        }
+        else {
+            throw IllegalArgumentException("Unexpected component class: " + javaClass.name)
+        }
     }
 
     private fun loadClass(name: String): Class<*>? =
